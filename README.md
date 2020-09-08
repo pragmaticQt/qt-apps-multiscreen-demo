@@ -1,10 +1,13 @@
 # Build with Qt5.12.2
 
-## Inspired by this
+## Inspired by
  - Multi-Screen demo using Qt Automotive Suite
  
-  [![Multi-Screen demo using Qt Automotive Suite](http://img.youtube.com/vi/JAsxxeHCUSE/0.jpg)](http://www.youtube.com/watch?v=JAsxxeHCUSE "Multi-Screen demo using Qt Automotive Suite")
-
+[![Multi-Screen demo using Qt Automotive Suite](http://img.youtube.com/vi/JAsxxeHCUSE/0.jpg)](http://www.youtube.com/watch?v=JAsxxeHCUSE "Multi-Screen demo using Qt Automotive Suite")
+ 
+ - QtWS17 - Automotive navigation with Mapbox GL and QtLocation, Bruno de Oliveira Abinader, Mapbox
+ 
+[![Automotive navigation with Mapbox GL and QtLocation](http://img.youtube.com/vi/rkgPvXWjSpI/0.jpg)](http://www.youtube.com/watch?v=rkgPvXWjSpI "Automotive navigation with Mapbox GL and QtLocation")
 
 # Build instruction
 
