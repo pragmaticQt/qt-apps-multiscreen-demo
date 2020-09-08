@@ -1,4 +1,14 @@
-# Overview
+# Build with Qt5.12.2
+
+## Inspired by this
+ - Multi-Screen demo using Qt Automotive Suite
+ 
+  [![Multi-Screen demo using Qt Automotive Suite](http://img.youtube.com/vi/JAsxxeHCUSE/0.jpg)](http://www.youtube.com/watch?v=JAsxxeHCUSE "Multi-Screen demo using Qt Automotive Suite")
+
+
+# Build instruction
+
+## Overview
     * The Multiscreen Demo is based on the Neptune UI code which is provided as a part of the Qt Automotive Suite (https://doc.qt.io/QtAutomotiveSuite/).
     In its implementation, the Multiscreen Demo provides an alternative implementation for a few selected use cases in automotive UIs, e.g.,
     the use of 3D content, integration of the CAN-bus interfaces or a use of multiple screens. Please be aware that in the future this
@@ -30,7 +40,7 @@
 
     * At least Qt 5.8 is required to build automotivedemo. Currently only TCP is supported in this automotivedemo.
 
-# Walkthrough
+## Walkthrough
 
     * OPTIONAL: Chose your data sources (using TCP, or create your CAN devices as necessary).
 
@@ -57,7 +67,7 @@
             chmod +x /opt/automotivedemo/start.sh
             ./start.sh
 
-# Making it run automatically in HW
+## Making it run automatically in HW
 
     Disable neptune-ui and enable automotive demo to startup during device boot:
         adb shell
