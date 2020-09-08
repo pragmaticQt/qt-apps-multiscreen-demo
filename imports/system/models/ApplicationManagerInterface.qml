@@ -30,7 +30,7 @@
 
 pragma Singleton
 import QtQuick 2.0
-import QtApplicationManager 1.0
+import QtApplicationManager.SystemUI 2.0
 import service.music 1.0
 import utils 1.0
 import com.pelagicore.ScreenManager 1.0

@@ -87,11 +87,47 @@ Item {
             preferred: ["mapbox"]
             //This mapbox token is for this automotive demo use only. For other projects please contact
             //https://www.mapbox.com/ for access token.
-            PluginParameter { name: "mapbox.access_token"; value: "pk.eyJ1IjoibWFwYm94NHF0IiwiYSI6ImNpd3J3eDE0eDEzdm8ydHM3YzhzajlrN2oifQ.keEkjqm79SiFDFjnesTcgQ" }
-            PluginParameter { name: "mapbox.map_id"; value: "qtcluster.d7eed331" }
+            // PluginParameter { name: "mapbox.access_token"; value: "sk.eyJ1IjoibGVpLXpoYW5nIiwiYSI6ImNrZXRyMGdrdDE4OXYyd24wMDcxcXdzbjkifQ.k9UyBqV7RJGaJi6aUEacjQ" }
+            // PluginParameter { name: "mapbox.map_id"; value: "qtcluster.d7eed331" }
+            name: "mapboxgl"
+
+            PluginParameter {
+                name: "mapboxgl.mapping.items.insert_before"
+                value: "road-label-small"
+            }
+
+            PluginParameter {
+                name: "mapboxgl.mapping.use_fbo"
+                value: false
+            }
+
+            PluginParameter {
+                name: "mapbox.access_token";
+                value: "pk.eyJ1IjoicXRzZGsiLCJhIjoiY2l5azV5MHh5MDAwdTMybzBybjUzZnhxYSJ9.9rfbeqPjX2BusLRDXHCOBA"
+            }
+
+            PluginParameter {
+                name: "mapboxgl.mapping.additional_style_urls"
+                value: "mapbox://styles/mapbox/navigation-guidance-day-v2,mapbox://styles/mapbox/navigation-guidance-night-v2,mapbox://styles/mapbox/navigation-preview-day-v2,mapbox://styles/mapbox/navigation-preview-night-v2"
+            }
+        }
+
+        activeMapType: {
+            var style;
+            if (window.navigating) {
+                style = night ? supportedMapTypes[1] : supportedMapTypes[0]
+            } else {
+                style = night ? supportedMapTypes[3] : supportedMapTypes[2]
+            }
+            return style
         }
 
         center: startCoordinate
+        minimumZoomLevel: 0
+        maximumZoomLevel: 20
+        zoomLevel: 16
+        bearing: 90
+        tilt: 0
 
         //Helper timer to notice when position is not updated anymore,
         //then we need to start the route over.
@@ -123,7 +159,7 @@ Item {
             CoordinateAnimation { duration: 1500 }
         }
 
-        zoomLevel: 16
+
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
                                   | MapGestureArea.FlickGesture

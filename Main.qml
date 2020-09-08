@@ -51,7 +51,7 @@
 
 import QtQuick 2.1
 import QtQuick.Window 2.3
-import QtApplicationManager 1.0
+import QtApplicationManager.SystemUI 2.0
 import com.pelagicore.ScreenManager 1.0
 import utils 1.0
 import "Cluster/qml"
@@ -70,9 +70,10 @@ Rectangle {
         id: centerConsole
         width: Style.screenWidth
         height: Style.screenHeight
-        rotation: -90
-        y: -420
-        x: 420
+        rotation: 0
+        scale: 0.5
+        y: -480//-420
+        x: 0//420
 
         Component {
             id: topMenu
@@ -108,7 +109,7 @@ Rectangle {
             title: "Cluster Display"
             height: 720
             width: 1920
-            visible: false
+            visible: true
             screen: Qt.application.screens[1]
 
             color: "black"
