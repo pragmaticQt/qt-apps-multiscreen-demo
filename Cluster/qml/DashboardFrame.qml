@@ -33,7 +33,7 @@ Item {
     id: root
     width: 1920
     height: 1080//720
-    anchors.top: parent.top
+    //anchors.top: parent.top
 
     property real faderOpacity: 1.0
 

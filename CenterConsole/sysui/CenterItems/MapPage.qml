@@ -47,10 +47,10 @@ Item {
     property string arrivalTime
     property bool offlineMode: false
 
-    Image {
-        z: 2
-        source: Style.symbol("MapOverlayEdgeGradient")
-    }
+    // Image {
+    //     z: 2
+    //     source: Style.symbol("MapOverlayEdgeGradient")
+    // }
 
     Image {
         id: qtLogo
@@ -77,7 +77,7 @@ Item {
         id: map
         width: parent.width
         height: parent.height
-        color: "black"
+        // color: "black"
         property real speed
         property bool mapManuallyMoved: false
         property bool flickStarted: false
@@ -113,13 +113,14 @@ Item {
         }
 
         activeMapType: {
-            var style;
-            if (window.navigating) {
-                style = night ? supportedMapTypes[1] : supportedMapTypes[0]
-            } else {
-                style = night ? supportedMapTypes[3] : supportedMapTypes[2]
-            }
-            return style
+            // var style;
+            // if (navigationStarted) {
+            //     style = night ? supportedMapTypes[1] : supportedMapTypes[0]
+            // } else {
+            //     style = night ? supportedMapTypes[3] : supportedMapTypes[2]
+            // }
+            // return style
+            return supportedMapTypes[0]
         }
 
         center: startCoordinate
@@ -159,6 +160,28 @@ Item {
             CoordinateAnimation { duration: 1500 }
         }
 
+        RotationAnimation on bearing {
+            id: bearingAnimation
+
+            duration: 250
+            alwaysRunToEnd: false
+            direction: RotationAnimation.Shortest
+            running: navigationStarted
+        }
+
+        Location {
+            id: previousLocation
+            coordinate: QtPositioning.coordinate(0, 0)
+        }
+
+        onCenterChanged: {
+            if (previousLocation.coordinate == center || !navigationStarted)
+                return
+
+            bearingAnimation.to = previousLocation.coordinate.azimuthTo(center)
+            bearingAnimation.start()
+            previousLocation.coordinate = center
+        }
 
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture

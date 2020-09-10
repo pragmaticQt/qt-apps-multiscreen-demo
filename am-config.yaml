@@ -19,7 +19,7 @@ runtimes:
 # ... as well as the SystemUI
 
 ui:
-  fullscreen: yes
+  fullscreen: no
   mainQml: "Main.qml"
   importPaths: [ "imports/shared", "imports/system", "qml" ]
   windowIcon: "imports/shared/assets/icons/active/apps@96.png"

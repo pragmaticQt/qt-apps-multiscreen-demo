@@ -73,7 +73,7 @@ Rectangle {
         rotation: 0
         scale: 0.5
         y: -480//-420
-        x: 0//420
+        x: -270//420
 
         Component {
             id: topMenu
@@ -114,7 +114,12 @@ Rectangle {
 
             color: "black"
 
-            DashboardFrame {}
+
+            DashboardFrame {
+        y: -108//-420
+        x: -192//420
+            scale: 0.8
+            }
 
             Component.onCompleted: {
                 WindowManager.registerCompositorView(cluster)
