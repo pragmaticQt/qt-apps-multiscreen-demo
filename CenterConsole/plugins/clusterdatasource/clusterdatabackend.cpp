@@ -34,10 +34,11 @@
 #include <QNetworkInterface>
 
 #ifndef CLUSTERDATA_SIMULATION
-// #define DEBUG_CAN
+#define DEBUG_CAN
 #include <QtMath>
 #include <QCanBus>
-#define SOCKETCAN "socketcan"
+// #define SOCKETCAN "socketcan"
+#define SOCKETCAN "virtualcan"
 #define CANINTERFACE "can0"
 
 // J1939 PGNs
@@ -121,7 +122,7 @@ ClusterDataBackend::ClusterDataBackend(QObject* parent) :
 
 #ifndef CLUSTERDATA_SIMULATION
     QCanBus* canBus(QCanBus::instance());
-    QList<QByteArray> plugins(canBus->plugins());
+    QStringList plugins(canBus->plugins());
     if (plugins.contains(SOCKETCAN)) {
         m_canDevice = canBus->createDevice(SOCKETCAN, CANINTERFACE);
         if (m_canDevice) {

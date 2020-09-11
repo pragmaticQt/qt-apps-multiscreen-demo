@@ -93,7 +93,7 @@ Item {
     property real latitude: clusterDataSource.latitude
     property real longitude: clusterDataSource.longitude
     property real direction: clusterDataSource.direction
-    property bool lowBeam: automaticDemoMode//clusterDataSource.headLight
+    property bool lowBeam: clusterDataSource.headLight
     property int carId: clusterDataSource.carId
     property bool lightFailure: clusterDataSource.lightFailure
     property bool flatTire: clusterDataSource.flatTire
@@ -116,25 +116,25 @@ Item {
     //
     // ENABLE FOR FULLY AUTOMATIC DEMO MODE (in case there is no CanController)
     //
-    property bool automaticDemoMode: true
+    property bool automaticDemoMode: false
     property bool startAnimations: false
 
     onAutomaticDemoModeChanged: {
         if (startAnimations) {
             kph = 0
             if (automaticDemoMode) {
-                animation.start()
+                // animation.start()
             } else {
                 gear = 1
                 parkingBrake = false
-                animation.stop()
+                // animation.stop()
             }
         }
     }
 
     onStartAnimationsChanged: {
-        if (startAnimations)
-            animation.start()
+        // if (startAnimations)
+        //     animation.start()
     }
 
     //
@@ -143,7 +143,7 @@ Item {
     Timer {
         running: startAnimations && automaticDemoMode
         property bool turnLeft: true
-        repeat: true
+        repeat: false
         interval: 7500
         onTriggered: {
             turnLeft = !turnLeft

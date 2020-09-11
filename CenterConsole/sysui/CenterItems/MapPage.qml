@@ -63,11 +63,11 @@ Item {
 
     onNavigationStartedChanged: {
         if (navigationStarted) {
-            ValueSource.automaticDemoMode = false
+            // ValueSource.automaticDemoMode = false
             positionSource.start()
             routeStopped.running = true
         } else {
-            ValueSource.automaticDemoMode = true
+            // ValueSource.automaticDemoMode = true
             positionSource.stop()
             routeStopped.running = false
         }

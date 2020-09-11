@@ -269,7 +269,7 @@ Image
         ScriptAction {
             script: {
                 startupAnimationsFinished = true
-                ValueSource.startAnimations = true
+                ValueSource.startAnimations = false
             }
         }
     }

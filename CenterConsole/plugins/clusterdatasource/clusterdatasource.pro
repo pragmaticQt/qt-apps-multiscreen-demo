@@ -18,11 +18,11 @@ HEADERS += \
     qtiviclusterdata.h \
     clusterdatabackend.h
 
-#qtHaveModule(serialbus):!simulation_only {
-#QT += serialbus
-#} else: {
+qtHaveModule(serialbus):!simulation_only {
+QT += serialbus
+} else: {
 DEFINES += CLUSTERDATA_SIMULATION
-#}
+}
 
 OTHER_FILES = qmldir
 
