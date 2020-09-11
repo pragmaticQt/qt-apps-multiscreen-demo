@@ -27,6 +27,7 @@
 ****************************************************************************/
 
 import QtQuick 2.0
+import QtQml 2.12
 
 Rectangle {
     id: buttonMainRect
@@ -105,7 +106,7 @@ Rectangle {
             blinkTimer.baseColor = buttonMainRect.color
             blinkTimer.textBaseColor = buttonText.color
         }
-        interval: 300
+        interval: 500
         onTriggered: {
             buttonMainRect.blink = !buttonMainRect.blink
             if (buttonMainRect.blink) {

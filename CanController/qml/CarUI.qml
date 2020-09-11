@@ -27,6 +27,7 @@
 ****************************************************************************/
 
 import QtQuick 2.0
+import QtQml 2.12
 
 Rectangle {
     width: 1024
@@ -60,10 +61,10 @@ Rectangle {
             leftBackDoorOpen: clusterDataControl.rearLeftDoorOpen
             rightFrontDoorOpen: clusterDataControl.frontRightDoorOpen
             rightBackDoorOpen: clusterDataControl.rearRightDoorOpen
-            bootDoorOpen: bootDoorButton.pressed//clusterDataControl.trunkOpen
+            bootDoorOpen: clusterDataControl.trunkOpen
             hoodDoorOpen: clusterDataControl.hoodOpen
-            leftBlink: clusterDataControl.leftTurnLight
-            rightBlink: clusterDataControl.rightTurnLight
+            leftBlink: clusterDataControl.leftTurnLight || clusterDataControl.hazardSignal
+            rightBlink: clusterDataControl.rightTurnLight || clusterDataControl.hazardSignal
         }
 
         Gear {
@@ -96,7 +97,7 @@ Rectangle {
 
         Button {
             id: carID
-            visible: false
+            visible: true
             anchors {
                 top: (carNumber === 1) ? gearController.bottom : gearControllerAutomatic.bottom
                 topMargin: 33
@@ -181,17 +182,17 @@ Rectangle {
                 text: "Turn Left"
                 blinkingEnabled: false
                 onPressedChanged: {
-                    if (!hazardButton.pressed) {
-                        if (leftSignalButton.pressed && rightSignalButton.pressed) {
-                            rightSignalButton.pressed = false
-                            car.rightBlink = false
-                        }
-                        clusterDataControl.leftTurnLight = leftSignalButton.pressed
-                        car.leftBlink = leftSignalButton.pressed
+                    if (leftSignalButton.pressed && rightSignalButton.pressed) {
+                        rightSignalButton.pressed = false
                     }
                 }
                 mouseEnabled: !hazardButton.pressed
+
+                Component.onCompleted: clusterDataControl.leftTurnLight = Qt.binding(function() {
+                    return leftSignalButton.pressed
+                })
             }
+
             ButtonHolder {
                 id: rightSignalButton
                 icon: "qrc:/images/Icon_TurnRight_OFF.png"
@@ -199,17 +200,16 @@ Rectangle {
                 text: "Turn Right"
                 blinkingEnabled: false
                 onPressedChanged:  {
-                    if (!hazardButton.pressed) {
-                        if (rightSignalButton.pressed && leftSignalButton.pressed) {
-                            leftSignalButton.pressed = false
-                            car.leftBlink = false
-                        }
-                        clusterDataControl.rightTurnLight = rightSignalButton.pressed
-                        car.rightBlink = rightSignalButton.pressed
+                    if (rightSignalButton.pressed && leftSignalButton.pressed) {
+                        leftSignalButton.pressed = false
                     }
                 }
                 mouseEnabled: !hazardButton.pressed
+                Component.onCompleted: clusterDataControl.rightTurnLight = Qt.binding(function() {
+                    return rightSignalButton.pressed
+                })
             }
+
             ButtonHolder {
                 id: hazardButton
                 icon: "qrc:/images/Icon_HazardWarning_OFF.png"
@@ -218,29 +218,19 @@ Rectangle {
                 blinkingEnabled: false
                 property bool leftPreviousState: false
                 property bool rightPreviousState: false
+
+                Component.onCompleted: clusterDataControl.hazardSignal = Qt.binding(function() {
+                    return hazardButton.pressed
+                })
+
                 onPressedChanged: {
-                    clusterDataControl.hazardSignal = hazardButton.pressed
                     if (hazardButton.pressed) {
-                        if (leftSignalButton.pressed)
-                            hazardButton.leftPreviousState = true
-                        else
-                            leftSignalButton.pressed = true
-                        if (rightSignalButton.pressed)
-                            hazardButton.rightPreviousState = true
-                        else
-                            rightSignalButton.pressed = true
+                        hazardButton.leftPreviousState = leftSignalButton.pressed
+                        hazardButton.rightPreviousState = rightSignalButton.pressed
                     } else {
-                        if (hazardButton.leftPreviousState)
-                            hazardButton.leftPreviousState = false
-                        else
-                            leftSignalButton.pressed = false
-                        if (hazardButton.rightPreviousState)
-                            hazardButton.rightPreviousState = false
-                        else
-                            rightSignalButton.pressed = false
+                        leftSignalButton.pressed = hazardButton.leftPreviousState
+                        rightSignalButton.pressed = hazardButton.rightPreviousState
                     }
-                    car.leftBlink = leftSignalButton.pressed
-                    car.rightBlink = rightSignalButton.pressed
                 }
             }
             /*
